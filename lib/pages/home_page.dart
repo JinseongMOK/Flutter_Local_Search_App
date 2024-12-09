@@ -1,72 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_search_app/pages/detail_page.dart';
+import 'package:flutter_local_search_app/pages/home_page_body.dart';
+import 'package:flutter_local_search_app/pages/home_view_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  void onSearch(String text) {
+    ref.read(homeViewModelProvider.notifier).searchMap(text);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final homeState = ref.watch(homeViewModelProvider);
     return Scaffold(
+      // 검색 바
       appBar: AppBar(
-        title: TextField(
-          decoration: InputDecoration(
-            hintText: '검색어를 입력해주세요',
-            border: MaterialStateOutlineInputBorder.resolveWith(
-              (states) {
-                print(states);
-                if (states.contains(WidgetState.focused)) {
-                  return OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
-                  );
-                }
-                return OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.grey),
-                );
-              },
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            onChanged: onSearch,
+            decoration: InputDecoration(
+              hintText: '검색어를 입력해 주세요',
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+              filled: true,
+              fillColor: Colors.white,
             ),
           ),
         ),
-      ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/Detail_Page');
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(homeViewModelProvider.notifier).searchCurrentLocation();
             },
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                width: double.infinity,
-                height: 110,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey[300]!),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '삼성 1동 주민센터',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text('공공,사회기관>행정복지센터'),
-                    Text('서울특별시 강남구 봉은사로 616 삼성1동 주민센터'),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+            icon: const Icon(Icons.gps_fixed),
+          ),
+        ],
       ),
+
+      // 검색 결과 리스트
+      // 검색 결과 리스트
+      body: HomePageBody(homeState: homeState),
     );
   }
 }

@@ -1,4 +1,4 @@
-class Location {
+class Info {
   final String title;
   final String link;
   final String category;
@@ -9,7 +9,7 @@ class Location {
   final String mapx;
   final String mapy;
 
-  Location({
+  Info({
     required this.title,
     required this.link,
     required this.category,
@@ -21,7 +21,7 @@ class Location {
     required this.mapy,
   });
 
-  Location.fromJson(Map<String, dynamic> map)
+  Info.fromJson(Map<String, dynamic> map)
       : this(
           title: map['title'],
           link: map['link'],
@@ -33,6 +33,12 @@ class Location {
           mapx: map['mapx'],
           mapy: map['mapy'],
         );
+
+  // HTML 태그 제거 헬퍼 메서드
+  static String removeHtmlTags(String text) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return text.replaceAll(exp, '');
+  }
 
   Map<String, dynamic> toJson() {
     return {

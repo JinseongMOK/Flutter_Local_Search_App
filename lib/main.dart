@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_search_app/pages/detail_page.dart';
 import 'package:flutter_local_search_app/pages/home_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,10 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/Detail_Page': (context) => DetailPage(),
-      },
       home: HomePage(),
     );
   }

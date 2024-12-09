@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  final String link;
+
+  const DetailPage({super.key, required this.link});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '삼성1동 주민센터',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        title: const Text('상세 정보'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Text('Detail Page'),
+      body: InAppWebView(
+        initialUrlRequest: URLRequest(url: WebUri(link)),
+      ),
     );
   }
 }
