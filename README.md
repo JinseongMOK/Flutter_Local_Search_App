@@ -1,6 +1,7 @@
 # flutter_local_search_app
 
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+
 Flutter로 제작된 지역 검색 애플리케이션으로, MVVM 아키텍처를 기반으로 구현되었습니다. NAVER 검색 API, NAVER 지도 API, VWORLD API, Geolocator, Riverpod를 활용하여 개발되었습니다.
 
 ## 주요기능
