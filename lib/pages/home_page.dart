@@ -37,7 +37,11 @@ class _HomePageState extends ConsumerState<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              ref.read(homeViewModelProvider.notifier).searchCurrentLocation();
+              ref
+                  // 36.6261008
+                  // 127.431065
+                  .read(homeViewModelProvider.notifier)
+                  .myLocation();
             },
             icon: const Icon(Icons.gps_fixed),
           ),

@@ -22,7 +22,7 @@ class HomeViewModel extends Notifier<HomeState> {
     state = HomeState(guidances);
   }
 
-  Future<void> searchCurrentLocation() async {
+  Future<void> myLocation() async {
     try {
       // 위치 권한 확인
       LocationPermission permission = await Geolocator.checkPermission();

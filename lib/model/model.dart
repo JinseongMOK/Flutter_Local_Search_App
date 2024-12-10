@@ -1,3 +1,5 @@
+import 'package:html/parser.dart';
+
 class Info {
   final String title;
   final String link;
@@ -36,8 +38,10 @@ class Info {
 
   // HTML 태그 제거 헬퍼 메서드
   static String removeHtmlTags(String text) {
-    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
-    return text.replaceAll(exp, '');
+    var document = parse(text);
+    String parsedString =
+        parse(document.body?.text ?? '').documentElement?.text ?? '';
+    return parsedString;
   }
 
   Map<String, dynamic> toJson() {
